@@ -37,6 +37,7 @@ gem 'bootsnap', require: false
 # gem "rack-cors"
 gem 'devise'
 gem 'devise-jwt'
+gem 'pundit'
 gem 'rswag-api'
 gem 'rswag-ui'
 
