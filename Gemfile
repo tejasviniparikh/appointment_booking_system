@@ -38,6 +38,7 @@ gem 'bootsnap', require: false
 gem 'devise'
 gem 'devise-jwt'
 gem 'pundit'
+gem 'rolify'
 gem 'rswag-api'
 gem 'rswag-ui'
 

@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  rolify
   include Devise::JWT::RevocationStrategies::JTIMatcher
 
   # Include default devise modules. Others available are:
