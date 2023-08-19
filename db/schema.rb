@@ -10,9 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_19_010947) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_19_035110) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "appointments", force: :cascade do |t|
+    t.bigint "availability_id", null: false
+    t.bigint "doctor_id", null: false
+    t.bigint "patient_id", null: false
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["availability_id"], name: "index_appointments_on_availability_id"
+    t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
+    t.index ["patient_id"], name: "index_appointments_on_patient_id"
+  end
+
+  create_table "availabilities", force: :cascade do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.bigint "doctor_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["doctor_id"], name: "index_availabilities_on_doctor_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
@@ -53,4 +74,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_010947) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "appointments", "availabilities"
+  add_foreign_key "appointments", "users", column: "doctor_id"
+  add_foreign_key "appointments", "users", column: "patient_id"
+  add_foreign_key "availabilities", "users", column: "doctor_id"
 end
