@@ -8,4 +8,5 @@ en:
       no_data_available: 'No data available'
       created: '%{resource} created successfully.'
       updated: '%{resource} update successfully.'
-      record_not_found: 'The record you are trying to update is not present.'
+    appointment:
+      status_updated: "Appointment %{status} successfully."

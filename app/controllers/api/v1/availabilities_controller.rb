@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    # Base controller for the common methods.
+    # Availabiliy controller
     class AvailabilitiesController < BaseApiController
       def index
         resources = policy_scope(Availability)
@@ -19,7 +19,7 @@ module Api
         authorize(resource)
         if resource.save
           render_success({ data: serialized_json(resource, AvailabilitySerializer) },
-                         I18n.t('controller_msgs.common.created'), 201)
+                         I18n.t('controller_msgs.common.created', resource: 'Availability'), 201)
         else
           render_error(resource)
         end
@@ -30,7 +30,7 @@ module Api
         authorize(resource)
         if resource.update(resource_params)
           render_success({ data: serialized_json(resource, AvailabilitySerializer) },
-                         I18n.t('controller_msgs.common.updated'))
+                         I18n.t('controller_msgs.common.updated', resource: 'Availability'))
         else
           render_error(resource)
         end
