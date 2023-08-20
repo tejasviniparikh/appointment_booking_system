@@ -15,6 +15,9 @@ module AppointmentBookingSystem
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use config.session_store, config.session_options
 
+    config.time_zone = 'Mumbai'
+    config.active_record.default_timezone = :local
+
     config.api_only = true
   end
 end

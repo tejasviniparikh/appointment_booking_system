@@ -3,3 +3,9 @@ en:
   authorization:
       unauthorize: "You can't perform this action."
       record_not_found: 'You can not access this record or the record you are trying to access does not exist.'
+  controller_msgs:
+    common:
+      no_data_available: 'No data available'
+      created: '%{resource} created successfully.'
+      updated: '%{resource} update successfully.'
+      record_not_found: 'The record you are trying to update is not present.'

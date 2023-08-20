@@ -33,7 +33,8 @@ module ApiResponder
   def serialized_json(details, serializer_class)
     return details if serializer_class.nil?
 
-    serializer_class.new(details).serializable_hash[:data][:attributes]
+    records = serializer_class.new(details).serializable_hash[:data]
+    records.instance_of?(Hash) ? records[:attributes] : records.map { |record| record[:attributes] }
   end
 
   private
