@@ -1,21 +1,17 @@
 # frozen_string_literal: true
 
-# availability policy
-class AvailabilityPolicy < ApplicationPolicy
+# appointment policy
+class AppointmentPolicy < ApplicationPolicy
   def index?
     if user.is_patient?
-      true
+      record.pluck(:patient_id).all?(user.id)
     elsif user.is_doctor?
       record.pluck(:doctor_id).all?(user.id)
     end
   end
 
   def create?
-    user.is_doctor? && record.doctor_id == user.id
-  end
-
-  def update?
-    user.is_doctor? && record.doctor_id == user.id
+    user.is_patient? && record.patient_id == user.id
   end
 
   # Scope class to define scopes
@@ -24,7 +20,7 @@ class AvailabilityPolicy < ApplicationPolicy
       if user.is_doctor?
         scope.where(doctor_id: user.id)
       elsif user.is_patient?
-        scope.available
+        scope.where(patient_id: user.id)
       end
     end
   end
