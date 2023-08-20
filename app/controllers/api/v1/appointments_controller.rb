@@ -32,7 +32,7 @@ module Api
       end
 
       def resource_params
-        params.require(:appointment).permit(%i[doctor_id patient_id availability_id])
+        params.require(:appointment).permit(%i[patient_id availability_id])
       end
     end
   end

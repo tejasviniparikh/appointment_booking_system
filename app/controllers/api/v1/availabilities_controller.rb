@@ -4,6 +4,10 @@ module Api
   module V1
     # Availabiliy controller
     class AvailabilitiesController < BaseApiController
+      include DateFormatValidator
+
+      before_action :validate_date_format, only: %i[create update]
+
       def index
         resources = policy_scope(Availability)
         if resources.present?
@@ -38,6 +42,12 @@ module Api
 
       def resource_params
         params.require(:availability).permit(%i[doctor_id start_time])
+      end
+
+      def validate_date_format
+        return if valid_date?(params[:availability][:start_time])
+
+        render_error('Start time is missing or have invalid date format')
       end
     end
   end
