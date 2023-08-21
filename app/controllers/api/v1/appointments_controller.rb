@@ -6,13 +6,17 @@ module Api
     class AppointmentsController < BaseApiController
       def index
         resources = policy_scope(Appointment)
-        resources =
-          if Constants::VALID_APPOINTMENT_STATUSES.include?(params[:status]&.downcase)
-            resources.where(status: params[:status])
-          else
-            resources.scheduled
-          end
         if resources.present?
+          resources =
+            if Constants::VALID_APPOINTMENT_STATUSES.include?(params[:status]&.downcase)
+              resources.where(status: params[:status])
+            else
+              resources.scheduled
+            end
+            if resources.blank?
+              render_error(I18n.t('controller_msgs.common.no_data_available'), 200)
+              return
+            end
           authorize(resources)
           render_success({ data: serialized_json(resources, AppointmentSerializer) })
         else
